@@ -1,22 +1,13 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef LOADUIFILE_H
+#define LOADUIFILE_H
 
-#include <QMainWindow>
-#include <QPushButton>
+#include <QWidget>
 
-class MainWindow : public QMainWindow
+class LoadUiFile
 {
-    Q_OBJECT // Ensure that Q_OBJECT macro is present
-
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-
-private:
-    QPushButton *button;
-
-private slots:
-    void showMessage();
+    static QWidget *load(QWidget *parent = nullptr);
+    void LoadUiFile::connectButton(QWidget *widget);
 };
 
-#endif // MAINWINDOW_H
+#endif // LOADUIFILE_H

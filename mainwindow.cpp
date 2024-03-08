@@ -1,22 +1,39 @@
 #include "mainwindow.h"
-#include <QMessageBox>
+#include <QFile>
+#include <QUiLoader>
+#include <QWidget>
+#include <QPushButton>
+#include <QDebug>
 
-
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent)
+QWidget *LoadUiFile::load(QWidget *parent)
 {
-    button = new QPushButton("Click me!", this);
-    button->setGeometry(100, 100, 100, 50);
+    QFile file("C:/Users/memaa/Documents/Computer Vision/TEST/mainwindow.ui");
+    qDebug() << "Attempting to open file:" << file.fileName();
+    file.open(QIODevice::ReadOnly);
 
-    connect(button, &QPushButton::clicked, this, &MainWindow::showMessage);
+    QUiLoader loader;
+    QWidget *widget = loader.load(&file, parent);
+
+    if (widget) {
+        LoadUiFile uiFile;
+        uiFile.connectButton(widget);
+        
+    } else {
+        qDebug() << "Failed to load UI file!";
+    }
+
+    return widget;
 }
 
-MainWindow::~MainWindow()
+void LoadUiFile::connectButton(QWidget *widget)
 {
-
-}
-
-void MainWindow::showMessage()
-{
-    QMessageBox::information(this, "Hello", "Hello, world!");
+    QPushButton *button = widget->findChild<QPushButton*>("pushButton");
+    if (button) {
+        QObject::connect(button, &QPushButton::clicked, [=]() {
+            qDebug() << "Button clicked!";
+            // Add your slot function logic here
+        });
+    } else {
+        qDebug() << "Button not found!";
+    }
 }

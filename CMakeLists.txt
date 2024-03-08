@@ -12,8 +12,10 @@ find_package(Qt5 REQUIRED COMPONENTS Core Gui UiTools Widgets)
 
 # Source Files
 set(SRC_FILES 
+    # test.cpp
     main.cpp
-    mainwindow.cpp)
+    mainwindow.cpp
+    )
 
 # Header Files
 set(HEADERS
